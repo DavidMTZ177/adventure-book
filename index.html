@@ -1285,19 +1285,26 @@
                 border: 1px solid rgba(166,227,161,0.15);
                 overflow-x: auto;
             ">
-                <span style="color:#585b70;">// adventure-book.js — 3:47 AM, sin dormir</span><br>
-                <span style="color:#cba6f7;">const</span> <span style="color:#89b4fa;">miAmor</span> = {<br>
-                &nbsp;&nbsp;nombre: <span style="color:#a6e3a1;">"La mujer más bonita"</span>,<br>
-                &nbsp;&nbsp;juntos: <span style="color:#fab387;">7</span> + <span style="color:#a6e3a1;">" años"</span>,<br>
-                &nbsp;&nbsp;aventuras: <span style="color:#fab387;">Infinity</span>,<br>
-                &nbsp;&nbsp;teAmo: <span style="color:#cba6f7;">true</span>,<br>
-                &nbsp;&nbsp;dejarDeAmarte: <span style="color:#cba6f7;">false</span>,<br>
+                <span style="color:#585b70;">// adventure-book.js — 3:47 AM, sin dormir</span><br><br>
+                <span style="color:#cba6f7;">const</span> <span style="color:#89b4fa;">nuestraHistoria</span> = {<br>
+                &nbsp;&nbsp;años: <span style="color:#fab387;">7</span>,<br>
+                &nbsp;&nbsp;fotos: <span style="color:#89b4fa;">document</span>.<span style="color:#89b4fa;">querySelectorAll</span>(<span style="color:#a6e3a1;">".recuerdo"</span>),<br>
+                &nbsp;&nbsp;viajesHechos: [<span style="color:#a6e3a1;">"..."</span>],<br>
+                &nbsp;&nbsp;viajesPorHacer: <span style="color:#fab387;">Infinity</span>,<br>
+                &nbsp;&nbsp;momentosDificiles: <span style="color:#cba6f7;">true</span>,<br>
+                &nbsp;&nbsp;nosRendimos: <span style="color:#cba6f7;">false</span>,<br>
                 };<br><br>
-                <span style="color:#cba6f7;">while</span> (miAmor.<span style="color:#89b4fa;">teAmo</span>) {<br>
-                &nbsp;&nbsp;<span style="color:#89b4fa;">hacerlaFeliz</span>();<br>
-                &nbsp;&nbsp;<span style="color:#89b4fa;">planearSiguienteViaje</span>();<br>
-                &nbsp;&nbsp;<span style="color:#89b4fa;">decirleQueLaAmo</span>();<br>
-                &nbsp;&nbsp;<span style="color:#585b70;">// este loop nunca termina</span><br>
+                <span style="color:#585b70;">// pegar cada foto en su página</span><br>
+                <span style="color:#89b4fa;">nuestraHistoria</span>.<span style="color:#89b4fa;">fotos</span>.<span style="color:#89b4fa;">forEach</span>(<span style="color:#cba6f7;">foto</span> => {<br>
+                &nbsp;&nbsp;<span style="color:#89b4fa;">pegarConCinta</span>(foto);<br>
+                &nbsp;&nbsp;<span style="color:#89b4fa;">escribirCaption</span>(foto.<span style="color:#89b4fa;">recuerdo</span>);<br>
+                &nbsp;&nbsp;<span style="color:#89b4fa;">agregarCorazones</span>();<br>
+                });<br><br>
+                <span style="color:#585b70;">// las páginas en blanco que faltan</span><br>
+                <span style="color:#cba6f7;">while</span> (<span style="color:#89b4fa;">libro</span>.<span style="color:#89b4fa;">paginasEnBlanco</span> > <span style="color:#fab387;">0</span>) {<br>
+                &nbsp;&nbsp;<span style="color:#89b4fa;">planearSiguienteAventura</span>();<br>
+                &nbsp;&nbsp;<span style="color:#89b4fa;">llenarPagina</span>(<span style="color:#89b4fa;">juntos</span>);<br>
+                &nbsp;&nbsp;<span style="color:#585b70;">// spoiler: nunca llega a 0</span><br>
                 }<br><br>
                 <span style="color:#585b70;">// Horas invertidas: muchas</span><br>
                 <span style="color:#585b70;">// Cafés tomados: incontables</span><br>
