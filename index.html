@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Adventure Book</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&family=Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #5b3a29;
+            font-family: 'Caveat', cursive;
+            overflow-x: hidden;
+        }
+
+        /* ===== COVER ===== */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: radial-gradient(ellipse at 50% 40%, #1a1a2e 0%, #0d0d1a 60%, #050510 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 45% 85%, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 65% 55%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.4), transparent);
+            pointer-events: none;
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Light glow behind book */
+        .cover-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(218,165,32,0.15) 0%, rgba(218,165,32,0.05) 40%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .book-cover {
+            width: 420px;
+            height: 560px;
+            background:
+                linear-gradient(145deg, #7a3b10 0%, #924b1a 15%, #a0582a 30%, #8B4513 50%, #7a3b10 70%, #6b3410 85%, #5a2d0e 100%);
+            border-radius: 6px 16px 16px 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow:
+                -8px 0 20px rgba(0,0,0,0.5),
+                8px 8px 30px rgba(0,0,0,0.6),
+                inset 0 0 80px rgba(0,0,0,0.25),
+                inset 2px 0 6px rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            z-index: 1;
+        }
+
+        .book-cover:hover {
+            transform: scale(1.03) rotateY(-3deg);
+            box-shadow:
+                -12px 0 30px rgba(0,0,0,0.5),
+                10px 10px 35px rgba(0,0,0,0.6),
+                inset 0 0 80px rgba(0,0,0,0.25),
+                0 0 40px rgba(218,165,32,0.1);
+        }
+
+        /* Spine */
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 35px;
+            background:
+                linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.1) 60%, transparent 100%);
+            border-radius: 6px 0 0 6px;
+            border-right: 1px solid rgba(0,0,0,0.15);
+        }
+
+        /* Leather texture */
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 6px 16px 16px 6px;
+            background: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* Inner border */
+        .book-inner-border {
+            position: absolute;
+            top: 18px;
+            left: 45px;
+            right: 18px;
+            bottom: 18px;
+            border: 2px solid rgba(218, 165, 32, 0.25);
+            border-radius: 3px;
+            pointer-events: none;
+        }
+
+        .book-inner-border::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 1px solid rgba(218, 165, 32, 0.12);
+            border-radius: 2px;
+        }
+
+        /* Corner ornaments */
+        .corner-ornament {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-color: rgba(218, 165, 32, 0.4);
+            border-style: solid;
+            z-index: 2;
+        }
+
+        .corner-tl { top: 28px; left: 55px; border-width: 2px 0 0 2px; border-radius: 4px 0 0 0; }
+        .corner-tr { top: 28px; right: 28px; border-width: 2px 2px 0 0; border-radius: 0 4px 0 0; }
+        .corner-bl { bottom: 28px; left: 55px; border-width: 0 0 2px 2px; border-radius: 0 0 0 4px; }
+        .corner-br { bottom: 28px; right: 28px; border-width: 0 2px 2px 0; border-radius: 0 0 4px 0; }
+
+        /* Spine lines */
+        .spine-line {
+            position: absolute;
+            left: 12px;
+            width: 12px;
+            height: 2px;
+            background: rgba(218, 165, 32, 0.2);
+            border-radius: 1px;
+            z-index: 2;
+        }
+
+        .cover-frame {
+            width: 240px;
+            height: 180px;
+            border: 5px solid #c9a84c;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(218, 165, 32, 0.08);
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+            box-shadow:
+                inset 0 0 15px rgba(0,0,0,0.15),
+                0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .cover-frame::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 1.5px solid rgba(218, 165, 32, 0.2);
+            border-radius: 5px;
+        }
+
+        .cover-frame::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border: 1px solid rgba(218, 165, 32, 0.15);
+            border-radius: 1px;
+        }
+
+        .cover-photo {
+            width: 228px;
+            height: 168px;
+            object-fit: cover;
+            border-radius: 1px;
+        }
+
+        .cover-photo-placeholder {
+            width: 228px;
+            height: 168px;
+            background: linear-gradient(135deg, #c4956a, #b8896a, #d4a574);
+            border-radius: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b3a1a;
+            font-size: 0.95rem;
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .cover-title {
+            font-family: 'Indie Flower', cursive;
+            font-size: 2.6rem;
+            color: #d4aa3c;
+            text-shadow:
+                1px 1px 0px rgba(0,0,0,0.4),
+                2px 2px 4px rgba(0,0,0,0.3),
+                0 0 15px rgba(218, 165, 32, 0.15);
+            letter-spacing: 2px;
+            z-index: 1;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .cover-title span {
+            display: block;
+            font-size: 3.2rem;
+            letter-spacing: 4px;
+        }
+
+        .cover-subtitle {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            color: #c9a84c;
+            margin-top: 8px;
+            z-index: 1;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .cover-arrow {
+            font-family: 'Caveat', cursive;
+            color: rgba(218, 165, 32, 0.5);
+            font-size: 1.2rem;
+            margin-top: 50px;
+            animation: bounce 2s infinite;
+            z-index: 1;
+            letter-spacing: 1px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); opacity: 0.5; }
+            50% { transform: translateY(10px); opacity: 1; }
+        }
+
+        /* Open animation */
+        .cover.opening .book-cover {
+            animation: openBook 1.2s ease-in-out forwards;
+        }
+
+        @keyframes openBook {
+            0% { transform: perspective(800px) rotateY(0deg); }
+            60% { transform: perspective(800px) rotateY(-35deg) scale(0.95); }
+            100% { transform: perspective(800px) rotateY(0deg) scale(0.9); opacity: 0.8; }
+        }
+
+        /* ===== BALLOONS (floating in cover) ===== */
+        .balloons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 30px;
+            height: 38px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: float-up linear infinite;
+            opacity: 0.5;
+        }
+
+        .balloon::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 25%;
+            width: 30%;
+            height: 25%;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: rotate(-30deg);
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            width: 1px;
+            height: 25px;
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-50%);
+        }
+
+        /* Balloon cluster top-right */
+        .balloon-cluster {
+            position: absolute;
+            top: -10px;
+            right: 60px;
+            z-index: 0;
+            pointer-events: none;
+            animation: cluster-sway 6s ease-in-out infinite;
+        }
+
+        .balloon-cluster .cb {
+            position: absolute;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+
+        .balloon-cluster .cb::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            width: 1px;
+            height: 15px;
+            background: rgba(255,255,255,0.15);
+            transform: translateX(-50%);
+        }
+
+        .balloon-cluster .cb:nth-child(1) { width: 35px; height: 44px; background: #e74c3c; top: 0; left: 0; }
+        .balloon-cluster .cb:nth-child(2) { width: 30px; height: 38px; background: #3498db; top: -15px; left: 30px; }
+        .balloon-cluster .cb:nth-child(3) { width: 28px; height: 35px; background: #f39c12; top: 5px; left: 55px; }
+        .balloon-cluster .cb:nth-child(4) { width: 32px; height: 40px; background: #2ecc71; top: -25px; left: 15px; }
+        .balloon-cluster .cb:nth-child(5) { width: 26px; height: 33px; background: #9b59b6; top: -10px; left: 50px; }
+        .balloon-cluster .cb:nth-child(6) { width: 24px; height: 30px; background: #e91e63; top: -30px; left: 35px; }
+        .balloon-cluster .cb:nth-child(7) { width: 20px; height: 25px; background: #ff9800; top: 10px; left: 25px; }
+
+        .balloon-cluster .strings {
+            position: absolute;
+            top: 55px;
+            left: 20px;
+            width: 40px;
+            height: 60px;
+            border: none;
+        }
+
+        .balloon-cluster .strings::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 5px;
+            width: 30px;
+            height: 50px;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @keyframes cluster-sway {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            50% { transform: translateX(8px) rotate(2deg); }
+        }
+
+        .balloon:nth-child(1) { background: #e74c3c; left: 5%; animation-duration: 14s; animation-delay: 0s; width: 22px; height: 28px; }
+        .balloon:nth-child(2) { background: #3498db; left: 20%; animation-duration: 18s; animation-delay: 3s; width: 25px; height: 32px; }
+        .balloon:nth-child(3) { background: #f39c12; left: 35%; animation-duration: 13s; animation-delay: 5s; width: 20px; height: 25px; }
+        .balloon:nth-child(4) { background: #2ecc71; left: 50%; animation-duration: 16s; animation-delay: 1s; width: 18px; height: 23px; }
+        .balloon:nth-child(5) { background: #9b59b6; left: 65%; animation-duration: 15s; animation-delay: 4s; width: 22px; height: 28px; }
+        .balloon:nth-child(6) { background: #e91e63; left: 80%; animation-duration: 19s; animation-delay: 6s; width: 20px; height: 25px; }
+        .balloon:nth-child(7) { background: #ff9800; left: 92%; animation-duration: 12s; animation-delay: 2s; width: 16px; height: 20px; }
+        .balloon:nth-child(8) { background: #00bcd4; left: 75%; animation-duration: 20s; animation-delay: 8s; width: 19px; height: 24px; }
+
+        @keyframes float-up {
+            0% { bottom: -60px; opacity: 0; transform: translateX(0) rotate(0deg); }
+            8% { opacity: 0.5; }
+            92% { opacity: 0.5; }
+            100% { bottom: 110%; opacity: 0; transform: translateX(20px) rotate(5deg); }
+        }
+
+        /* ===== MUSIC BUTTON ===== */
+        .music-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(90, 45, 14, 0.85);
+            border: 2px solid rgba(218, 165, 32, 0.4);
+            color: #d4aa3c;
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: rgba(90, 45, 14, 0.95);
+            border-color: rgba(218, 165, 32, 0.7);
+        }
+
+        .music-btn.playing {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 3px 12px rgba(0,0,0,0.3); }
+            50% { box-shadow: 0 3px 20px rgba(218, 165, 32, 0.3); }
+        }
+
+        .music-btn .bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 18px;
+        }
+
+        .music-btn .bar {
+            width: 3px;
+            background: #d4aa3c;
+            border-radius: 1px;
+            transition: height 0.3s ease;
+        }
+
+        .music-btn .bar:nth-child(1) { height: 6px; }
+        .music-btn .bar:nth-child(2) { height: 10px; }
+        .music-btn .bar:nth-child(3) { height: 14px; }
+        .music-btn .bar:nth-child(4) { height: 8px; }
+
+        .music-btn.playing .bar {
+            animation: bar-dance 0.8s ease-in-out infinite alternate;
+        }
+
+        .music-btn.playing .bar:nth-child(1) { animation-delay: 0s; }
+        .music-btn.playing .bar:nth-child(2) { animation-delay: 0.15s; }
+        .music-btn.playing .bar:nth-child(3) { animation-delay: 0.3s; }
+        .music-btn.playing .bar:nth-child(4) { animation-delay: 0.45s; }
+
+        @keyframes bar-dance {
+            0% { height: 5px; }
+            100% { height: 18px; }
+        }
+
+        .music-btn:not(.playing) .bar {
+            height: 3px !important;
+        }
+
+        /* ===== PAGES ===== */
+        .album {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page {
+            background: #f5e6c8;
+            margin: 30px auto;
+            padding: 50px 40px;
+            border-radius: 3px;
+            position: relative;
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.3),
+                inset 0 0 60px rgba(139, 69, 19, 0.08);
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23paper)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(139, 69, 19, 0.15) 10%,
+                rgba(139, 69, 19, 0.15) 90%,
+                transparent 100%
+            );
+        }
+
+        /* ===== PHOTO STYLES ===== */
+        .photo-container {
+            position: relative;
+            display: inline-block;
+            margin: 15px;
+        }
+
+        .photo-frame {
+            background: white;
+            padding: 10px 10px 35px 10px;
+            box-shadow: 2px 3px 10px rgba(0,0,0,0.2);
+            transform: rotate(var(--rotation, 0deg));
+            transition: transform 0.3s ease;
+        }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 10;
+        }
+
+        .photo-frame img {
+            width: 280px;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-placeholder {
+            width: 280px;
+            height: 220px;
+            background: linear-gradient(135deg, #e8d5b7, #dcc7a9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a08060;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.9rem;
+        }
+
+        .photo-caption {
+            font-family: 'Caveat', cursive;
+            font-size: 1.1rem;
+            color: #5b3a29;
+            text-align: center;
+            margin-top: 8px;
+            position: absolute;
+            bottom: 8px;
+            left: 10px;
+            right: 10px;
+        }
+
+        /* Tape effect */
+        .tape {
+            position: absolute;
+            width: 80px;
+            height: 25px;
+            background: rgba(255, 235, 150, 0.6);
+            z-index: 2;
+        }
+
+        .tape-top {
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(var(--tape-rotation, 0deg));
+        }
+
+        .tape-corner-left {
+            top: -5px;
+            left: -15px;
+            transform: rotate(-35deg);
+            width: 60px;
+        }
+
+        .tape-corner-right {
+            top: -5px;
+            right: -15px;
+            transform: rotate(35deg);
+            width: 60px;
+        }
+
+        /* Pin effect */
+        .pin {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 18px;
+            background: radial-gradient(circle at 6px 6px, #e74c3c, #c0392b);
+            border-radius: 50%;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+
+        /* ===== PAGE LAYOUTS ===== */
+        .layout-single {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .layout-double {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .layout-double .photo-frame img,
+        .layout-double .photo-placeholder {
+            width: 220px;
+            height: 180px;
+        }
+
+        .layout-triple {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .layout-triple .photo-frame img,
+        .layout-triple .photo-placeholder {
+            width: 200px;
+            height: 160px;
+        }
+
+        .layout-big {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .layout-big .photo-frame img,
+        .layout-big .photo-placeholder {
+            width: 400px;
+            height: 300px;
+        }
+
+        /* ===== PAGE DECORATIONS ===== */
+        .page-title {
+            font-family: 'Indie Flower', cursive;
+            font-size: 2rem;
+            color: #5b3a29;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .page-text {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            color: #6b4a35;
+            text-align: center;
+            max-width: 500px;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        .page-date {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+            color: #a08060;
+            margin-top: 10px;
+        }
+
+        /* Stickers / decorations */
+        .sticker {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .doodle-heart {
+            position: absolute;
+            color: #e74c3c;
+            font-size: 1.5rem;
+            opacity: 0.4;
+        }
+
+        .doodle-star {
+            position: absolute;
+            color: #f39c12;
+            font-size: 1.2rem;
+            opacity: 0.4;
+        }
+
+        .doodle-arrow {
+            position: absolute;
+            color: #5b3a29;
+            font-size: 1.5rem;
+            opacity: 0.3;
+            font-family: 'Caveat', cursive;
+        }
+
+        /* ===== WASHI TAPE DIVIDERS ===== */
+        .washi-divider {
+            width: 100%;
+            height: 30px;
+            margin: 10px 0;
+            opacity: 0.5;
+        }
+
+        .washi-yellow {
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 235, 150, 0.7),
+                rgba(255, 235, 150, 0.7) 10px,
+                rgba(255, 220, 100, 0.7) 10px,
+                rgba(255, 220, 100, 0.7) 20px
+            );
+        }
+
+        .washi-pink {
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(255, 182, 193, 0.6),
+                rgba(255, 182, 193, 0.6) 10px,
+                rgba(255, 150, 170, 0.6) 10px,
+                rgba(255, 150, 170, 0.6) 20px
+            );
+        }
+
+        /* ===== FINAL MESSAGE PAGE ===== */
+        .final-page {
+            background: linear-gradient(135deg, #f5e6c8, #f0dbb8);
+            min-height: 600px;
+        }
+
+        .final-message {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: #5b3a29;
+            text-align: center;
+            max-width: 550px;
+            line-height: 1.8;
+        }
+
+        .final-signature {
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.5rem;
+            color: #8B4513;
+            margin-top: 30px;
+        }
+
+        .heart-big {
+            font-size: 4rem;
+            color: #e74c3c;
+            margin: 20px 0;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .page {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .page.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .book-cover {
+                width: 320px;
+                height: 440px;
+            }
+
+            .cover-title {
+                font-size: 1.8rem;
+            }
+
+            .cover-title span {
+                font-size: 2.3rem;
+            }
+
+            .cover-frame {
+                width: 200px;
+                height: 150px;
+            }
+
+            .cover-photo, .cover-photo-placeholder {
+                width: 188px;
+                height: 138px;
+            }
+
+            .book-inner-border {
+                top: 14px;
+                left: 38px;
+                right: 14px;
+                bottom: 14px;
+            }
+
+            .corner-tl { top: 22px; left: 46px; }
+            .corner-tr { top: 22px; right: 22px; }
+            .corner-bl { bottom: 22px; left: 46px; }
+            .corner-br { bottom: 22px; right: 22px; }
+
+            .balloon-cluster { right: 20px; transform: scale(0.7); }
+
+            .page {
+                padding: 30px 20px;
+                margin: 15px 10px;
+            }
+
+            .photo-frame img,
+            .photo-placeholder {
+                width: 220px;
+                height: 170px;
+            }
+
+            .layout-double .photo-frame img,
+            .layout-double .photo-placeholder {
+                width: 180px;
+                height: 140px;
+            }
+
+            .layout-triple .photo-frame img,
+            .layout-triple .photo-placeholder {
+                width: 150px;
+                height: 120px;
+            }
+
+            .layout-big .photo-frame img,
+            .layout-big .photo-placeholder {
+                width: 280px;
+                height: 210px;
+            }
+
+            .final-message {
+                font-size: 1.4rem;
+            }
+
+            .page-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== COVER ===== -->
+    <section class="cover" id="cover">
+        <div class="balloons">
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+        </div>
+        <div class="balloon-cluster">
+            <div class="cb"></div>
+            <div class="cb"></div>
+            <div class="cb"></div>
+            <div class="cb"></div>
+            <div class="cb"></div>
+            <div class="cb"></div>
+            <div class="cb"></div>
+            <div class="strings"></div>
+        </div>
+        <div class="cover-glow"></div>
+        <div class="book-cover" id="bookCover">
+            <div class="book-inner-border"></div>
+            <div class="corner-ornament corner-tl"></div>
+            <div class="corner-ornament corner-tr"></div>
+            <div class="corner-ornament corner-bl"></div>
+            <div class="corner-ornament corner-br"></div>
+            <div class="spine-line" style="top: 40px;"></div>
+            <div class="spine-line" style="top: 80px;"></div>
+            <div class="spine-line" style="bottom: 80px;"></div>
+            <div class="spine-line" style="bottom: 40px;"></div>
+            <div class="cover-frame">
+                <!-- FOTO PORTADA: Reemplaza el div de abajo con: <img src="fotos/portada.jpg" class="cover-photo" alt="Nosotros"> -->
+                <div class="cover-photo-placeholder">Foto de portada</div>
+            </div>
+            <div class="cover-title">My<span>Adventure</span>Book</div>
+            <div class="cover-subtitle">nuestra historia</div>
+        </div>
+        <div class="cover-arrow">Toca el libro para abrirlo &#9660;</div>
+    </section>
+
+    <!-- ===== ALBUM PAGES ===== -->
+    <div class="album">
+
+        <!-- PAGE 1: Intro -->
+        <div class="page">
+            <div class="page-title">Donde todo comenzo...</div>
+            <div class="layout-single">
+                <div class="photo-container">
+                    <div class="tape tape-top" style="--tape-rotation: 2deg;"></div>
+                    <div class="photo-frame" style="--rotation: -2deg;">
+                        <!-- FOTO 1: <img src="fotos/foto01.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto01.jpg</div>
+                        <div class="photo-caption">Escribe aqui la fecha o frase</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-text">Aqui puedes escribir algo sobre como se conocieron</div>
+            <span class="doodle-heart" style="top: 30px; right: 40px;">&#10084;</span>
+            <span class="doodle-heart" style="bottom: 40px; left: 35px;">&#10084;</span>
+        </div>
+
+        <!-- PAGE 2: Two photos -->
+        <div class="page">
+            <div class="page-title">Nuestras primeras aventuras</div>
+            <div class="layout-double">
+                <div class="photo-container">
+                    <div class="tape tape-corner-left"></div>
+                    <div class="tape tape-corner-right"></div>
+                    <div class="photo-frame" style="--rotation: -3deg;">
+                        <!-- FOTO 2: <img src="fotos/foto02.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto02.jpg</div>
+                        <div class="photo-caption">Descripcion de la foto</div>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <div class="pin"></div>
+                    <div class="photo-frame" style="--rotation: 2deg;">
+                        <!-- FOTO 3: <img src="fotos/foto03.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto03.jpg</div>
+                        <div class="photo-caption">Descripcion de la foto</div>
+                    </div>
+                </div>
+            </div>
+            <span class="doodle-star" style="top: 25px; left: 50px;">&#9733;</span>
+            <span class="doodle-star" style="bottom: 30px; right: 45px;">&#9733;</span>
+        </div>
+
+        <!-- PAGE 3: Big photo -->
+        <div class="page">
+            <div class="page-title">Un momento especial</div>
+            <div class="layout-big">
+                <div class="photo-container">
+                    <div class="tape tape-top" style="--tape-rotation: -1deg;"></div>
+                    <div class="photo-frame" style="--rotation: 1deg;">
+                        <!-- FOTO 4: <img src="fotos/foto04.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto04.jpg</div>
+                        <div class="photo-caption">Descripcion de la foto</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-text">Describe este momento especial</div>
+            <span class="doodle-heart" style="top: 20px; left: 60px; font-size: 2rem;">&#10084;</span>
+        </div>
+
+        <!-- PAGE 4: Three photos -->
+        <div class="page">
+            <div class="page-title">Momentos favoritos</div>
+            <div class="layout-triple">
+                <div class="photo-container">
+                    <div class="pin"></div>
+                    <div class="photo-frame" style="--rotation: -4deg;">
+                        <!-- FOTO 5: <img src="fotos/foto05.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto05.jpg</div>
+                        <div class="photo-caption">Momento 1</div>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <div class="tape tape-top" style="--tape-rotation: 3deg;"></div>
+                    <div class="photo-frame" style="--rotation: 2deg;">
+                        <!-- FOTO 6: <img src="fotos/foto06.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto06.jpg</div>
+                        <div class="photo-caption">Momento 2</div>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <div class="tape tape-corner-left"></div>
+                    <div class="tape tape-corner-right"></div>
+                    <div class="photo-frame" style="--rotation: -1deg;">
+                        <!-- FOTO 7: <img src="fotos/foto07.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto07.jpg</div>
+                        <div class="photo-caption">Momento 3</div>
+                    </div>
+                </div>
+            </div>
+            <span class="doodle-star" style="top: 15px; right: 30px; font-size: 2rem;">&#9733;</span>
+        </div>
+
+        <!-- PAGE 5: Two photos -->
+        <div class="page">
+            <div class="page-title">Risas y mas risas</div>
+            <div class="layout-double">
+                <div class="photo-container">
+                    <div class="tape tape-top" style="--tape-rotation: -2deg;"></div>
+                    <div class="photo-frame" style="--rotation: 3deg;">
+                        <!-- FOTO 8: <img src="fotos/foto08.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto08.jpg</div>
+                        <div class="photo-caption">Descripcion</div>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <div class="tape tape-corner-left"></div>
+                    <div class="tape tape-corner-right"></div>
+                    <div class="photo-frame" style="--rotation: -2deg;">
+                        <!-- FOTO 9: <img src="fotos/foto09.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto09.jpg</div>
+                        <div class="photo-caption">Descripcion</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-text">Siempre nos la pasamos increible juntos</div>
+            <span class="doodle-heart" style="bottom: 25px; right: 50px; font-size: 1.8rem;">&#10084;</span>
+        </div>
+
+        <!-- PAGE 6: Single photo -->
+        <div class="page">
+            <div class="page-title">Viajes juntos</div>
+            <div class="layout-single">
+                <div class="photo-container">
+                    <div class="pin"></div>
+                    <div class="photo-frame" style="--rotation: -1deg;">
+                        <!-- FOTO 10: <img src="fotos/foto10.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto10.jpg</div>
+                        <div class="photo-caption">Descripcion del viaje</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-text">Cada lugar es mejor contigo</div>
+            <span class="doodle-star" style="top: 30px; left: 40px;">&#9733;</span>
+            <span class="doodle-star" style="top: 50px; left: 70px; font-size: 0.8rem;">&#9733;</span>
+        </div>
+
+        <!-- PAGE 7: Three photos -->
+        <div class="page">
+            <div class="page-title">Celebraciones</div>
+            <div class="layout-triple">
+                <div class="photo-container">
+                    <div class="tape tape-top" style="--tape-rotation: 1deg;"></div>
+                    <div class="photo-frame" style="--rotation: 3deg;">
+                        <!-- FOTO 11: <img src="fotos/foto11.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto11.jpg</div>
+                        <div class="photo-caption">Celebracion 1</div>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <div class="pin"></div>
+                    <div class="photo-frame" style="--rotation: -2deg;">
+                        <!-- FOTO 12: <img src="fotos/foto12.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto12.jpg</div>
+                        <div class="photo-caption">Celebracion 2</div>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <div class="tape tape-corner-left"></div>
+                    <div class="tape tape-corner-right"></div>
+                    <div class="photo-frame" style="--rotation: 1deg;">
+                        <!-- FOTO 13: <img src="fotos/foto13.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto13.jpg</div>
+                        <div class="photo-caption">Celebracion 3</div>
+                    </div>
+                </div>
+            </div>
+            <span class="doodle-heart" style="top: 20px; right: 35px;">&#10084;</span>
+        </div>
+
+        <!-- PAGE 8: Big photo -->
+        <div class="page">
+            <div class="page-title">Mi foto favorita</div>
+            <div class="layout-big">
+                <div class="photo-container">
+                    <div class="tape tape-corner-left"></div>
+                    <div class="tape tape-corner-right"></div>
+                    <div class="photo-frame" style="--rotation: -1deg;">
+                        <!-- FOTO 14: <img src="fotos/foto14.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto14.jpg</div>
+                        <div class="photo-caption">Nuestra foto favorita</div>
+                    </div>
+                </div>
+            </div>
+            <span class="doodle-heart" style="bottom: 30px; left: 45px; font-size: 2.5rem;">&#10084;</span>
+            <span class="doodle-heart" style="top: 25px; right: 55px; font-size: 1.8rem;">&#10084;</span>
+        </div>
+
+        <!-- PAGE 9: Two photos -->
+        <div class="page">
+            <div class="page-title">Los dias comunes tambien son especiales</div>
+            <div class="layout-double">
+                <div class="photo-container">
+                    <div class="pin"></div>
+                    <div class="photo-frame" style="--rotation: 2deg;">
+                        <!-- FOTO 15: <img src="fotos/foto15.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto15.jpg</div>
+                        <div class="photo-caption">Un dia cualquiera</div>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <div class="tape tape-top" style="--tape-rotation: -3deg;"></div>
+                    <div class="photo-frame" style="--rotation: -3deg;">
+                        <!-- FOTO 16: <img src="fotos/foto16.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto16.jpg</div>
+                        <div class="photo-caption">Otro dia increible</div>
+                    </div>
+                </div>
+            </div>
+            <span class="doodle-star" style="bottom: 20px; left: 50px;">&#9733;</span>
+        </div>
+
+        <!-- PAGE 10: Three photos -->
+        <div class="page">
+            <div class="page-title">Mas recuerdos</div>
+            <div class="layout-triple">
+                <div class="photo-container">
+                    <div class="tape tape-top" style="--tape-rotation: 2deg;"></div>
+                    <div class="photo-frame" style="--rotation: -2deg;">
+                        <!-- FOTO 17: <img src="fotos/foto17.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto17.jpg</div>
+                        <div class="photo-caption">Recuerdo 1</div>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <div class="tape tape-corner-left"></div>
+                    <div class="tape tape-corner-right"></div>
+                    <div class="photo-frame" style="--rotation: 1deg;">
+                        <!-- FOTO 18: <img src="fotos/foto18.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto18.jpg</div>
+                        <div class="photo-caption">Recuerdo 2</div>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <div class="pin"></div>
+                    <div class="photo-frame" style="--rotation: -3deg;">
+                        <!-- FOTO 19: <img src="fotos/foto19.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto19.jpg</div>
+                        <div class="photo-caption">Recuerdo 3</div>
+                    </div>
+                </div>
+            </div>
+            <span class="doodle-heart" style="top: 15px; left: 40px; font-size: 1.8rem;">&#10084;</span>
+            <span class="doodle-star" style="bottom: 25px; right: 35px;">&#9733;</span>
+        </div>
+
+        <!-- PAGE 11: Single -->
+        <div class="page">
+            <div class="page-title">Juntos somos mejor</div>
+            <div class="layout-single">
+                <div class="photo-container">
+                    <div class="tape tape-corner-left"></div>
+                    <div class="tape tape-corner-right"></div>
+                    <div class="photo-frame" style="--rotation: 2deg;">
+                        <!-- FOTO 20: <img src="fotos/foto20.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto20.jpg</div>
+                        <div class="photo-caption">Nosotros</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-text">Cada dia contigo es una nueva aventura</div>
+            <span class="doodle-heart" style="top: 20px; right: 40px; font-size: 2rem;">&#10084;</span>
+        </div>
+
+        <!-- PAGE 12: Two photos -->
+        <div class="page">
+            <div class="page-title">Y las que faltan...</div>
+            <div class="layout-double">
+                <div class="photo-container">
+                    <div class="tape tape-top" style="--tape-rotation: 1deg;"></div>
+                    <div class="photo-frame" style="--rotation: -2deg;">
+                        <!-- FOTO 21: <img src="fotos/foto21.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto21.jpg</div>
+                        <div class="photo-caption">Descripcion</div>
+                    </div>
+                </div>
+                <div class="photo-container">
+                    <div class="pin"></div>
+                    <div class="photo-frame" style="--rotation: 3deg;">
+                        <!-- FOTO 22: <img src="fotos/foto22.jpg" alt=""> -->
+                        <div class="photo-placeholder">foto22.jpg</div>
+                        <div class="photo-caption">Descripcion</div>
+                    </div>
+                </div>
+            </div>
+            <span class="doodle-star" style="top: 30px; left: 45px; font-size: 1.5rem;">&#9733;</span>
+            <span class="doodle-star" style="top: 55px; left: 65px; font-size: 0.9rem;">&#9733;</span>
+        </div>
+
+        <!-- ===== FINAL PAGE: MESSAGE ===== -->
+        <div class="page final-page">
+            <div class="heart-big">&#10084;</div>
+            <div class="page-title" style="font-size: 2.4rem;">Para ti, mi aventura favorita</div>
+            <div class="final-message">
+                Aqui escribe tu mensaje dedicatoria para ella.
+                <br><br>
+                Puede ser tan largo o corto como quieras.
+                <br><br>
+                Este es el espacio para decirle todo lo que sientes.
+                <br><br>
+                Cada pagina de este libro es un pedazo de nuestra historia,
+                y las mejores paginas aun estan en blanco, esperando
+                que las llenemos juntos.
+            </div>
+            <div class="final-signature">Con todo mi amor, David</div>
+            <div class="heart-big" style="font-size: 2.5rem;">&#10084;</div>
+
+            <span class="doodle-heart" style="top: 20px; left: 30px; font-size: 1.5rem;">&#10084;</span>
+            <span class="doodle-heart" style="top: 40px; right: 40px; font-size: 1.2rem;">&#10084;</span>
+            <span class="doodle-heart" style="bottom: 30px; left: 50px; font-size: 1rem;">&#10084;</span>
+            <span class="doodle-heart" style="bottom: 50px; right: 60px; font-size: 1.8rem;">&#10084;</span>
+            <span class="doodle-star" style="top: 60px; left: 60px; font-size: 1rem;">&#9733;</span>
+            <span class="doodle-star" style="bottom: 40px; right: 35px; font-size: 1.2rem;">&#9733;</span>
+        </div>
+
+    </div>
+
+    <!-- YouTube player oculto -->
+    <div id="ytPlayer" style="position:fixed;top:-1000px;left:-1000px;width:1px;height:1px;pointer-events:none;"></div>
+
+    <button class="music-btn" id="musicBtn" title="Reproducir musica">
+        <div class="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </button>
+
+    <script>
+        const pages = document.querySelectorAll('.page');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        pages.forEach(page => observer.observe(page));
+
+        // YouTube IFrame API
+        let player;
+        let isPlaying = false;
+        let playerReady = false;
+        const musicBtn = document.getElementById('musicBtn');
+
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(tag);
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('ytPlayer', {
+                videoId: '2rn-vMbFglI',
+                playerVars: {
+                    autoplay: 0,
+                    loop: 1,
+                    playlist: '2rn-vMbFglI'
+                },
+                events: {
+                    onReady: function() { playerReady = true; }
+                }
+            });
+        }
+
+        function toggleMusic() {
+            if (!playerReady) return;
+            if (isPlaying) {
+                player.pauseVideo();
+                musicBtn.classList.remove('playing');
+            } else {
+                player.playVideo();
+                musicBtn.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        musicBtn.addEventListener('click', toggleMusic);
+
+        document.getElementById('bookCover').addEventListener('click', function() {
+            const cover = document.getElementById('cover');
+            cover.classList.add('opening');
+            if (!isPlaying && playerReady) {
+                toggleMusic();
+            }
+            setTimeout(() => {
+                document.querySelector('.album').scrollIntoView({ behavior: 'smooth' });
+            }, 600);
+        });
+    </script>
+
+</body>
+</html>
