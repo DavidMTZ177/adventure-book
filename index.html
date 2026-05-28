@@ -1276,6 +1276,7 @@
         let player;
         let isPlaying = false;
         let playerReady = false;
+        let musicStarted = false;
         const musicBtn = document.getElementById('musicBtn');
 
         const tag = document.createElement('script');
@@ -1296,6 +1297,14 @@
             });
         }
 
+        function startMusic() {
+            if (!playerReady || musicStarted) return;
+            musicStarted = true;
+            player.playVideo();
+            isPlaying = true;
+            musicBtn.classList.add('playing');
+        }
+
         function toggleMusic() {
             if (!playerReady) return;
             if (isPlaying) {
@@ -1308,14 +1317,27 @@
             isPlaying = !isPlaying;
         }
 
-        musicBtn.addEventListener('click', toggleMusic);
+        // Musica arranca con cualquier interaccion
+        ['click', 'touchstart', 'scroll', 'keydown'].forEach(function(evt) {
+            document.addEventListener(evt, function handler() {
+                startMusic();
+                document.removeEventListener(evt, handler);
+            }, { once: true });
+        });
+
+        musicBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (musicStarted) {
+                toggleMusic();
+            } else {
+                startMusic();
+            }
+        });
 
         document.getElementById('bookCover').addEventListener('click', function() {
             const cover = document.getElementById('cover');
             cover.classList.add('opening');
-            if (!isPlaying && playerReady) {
-                toggleMusic();
-            }
+            startMusic();
             setTimeout(() => {
                 document.querySelector('.album').scrollIntoView({ behavior: 'smooth' });
             }, 600);
