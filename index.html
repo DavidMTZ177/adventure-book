@@ -807,7 +807,8 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .book-cover {
-                width: 320px;
+                width: 90vw;
+                max-width: 340px;
                 height: 440px;
             }
 
@@ -844,40 +845,67 @@
             .balloon-cluster { right: 20px; transform: scale(0.7); }
 
             .page {
-                padding: 30px 20px;
-                margin: 15px 10px;
+                padding: 25px 15px;
+                margin: 12px 8px;
+                width: 90vw;
+                max-width: 360px;
+                box-sizing: border-box;
             }
 
             .photo-frame img,
             .photo-placeholder {
-                width: 220px;
-                height: 170px;
+                width: 250px;
+                height: 190px;
+            }
+
+            .layout-double {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
             }
 
             .layout-double .photo-frame img,
             .layout-double .photo-placeholder {
-                width: 180px;
-                height: 140px;
+                width: 240px;
+                height: 180px;
+            }
+
+            .layout-triple {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
             }
 
             .layout-triple .photo-frame img,
             .layout-triple .photo-placeholder {
-                width: 150px;
-                height: 175px;
+                width: 220px;
+                height: 260px;
             }
 
             .layout-big .photo-frame img,
             .layout-big .photo-placeholder {
                 width: 280px;
-                height: 210px;
+                height: 320px;
+            }
+
+            .photo-frame {
+                padding: 8px 8px 30px 8px;
+            }
+
+            .photo-caption {
+                font-size: 1rem;
             }
 
             .final-message {
-                font-size: 1.4rem;
+                font-size: 1.3rem;
             }
 
             .page-title {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
+            }
+
+            .page-text {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -1140,7 +1168,7 @@
                 <div class="photo-container">
                     <div class="tape tape-top" style="--tape-rotation: 2deg;"></div>
                     <div class="photo-frame" style="--rotation: -2deg;">
-                        <img src="fotos/foto21.jpg" alt="Vaqueros">
+                        <img src="fotos/foto21.jpg" alt="Vaqueros" style="object-fit:contain;background:#f5e6d0;">
                         <div class="photo-caption">Modo vaquero</div>
                     </div>
                 </div>
@@ -1269,27 +1297,23 @@
                 border: 1px solid rgba(166,227,161,0.15);
                 overflow-x: auto;
             ">
-                <span style="color:#585b70;">// adventure-book.js — 3:47 AM, sin dormir</span><br><br>
-                <span style="color:#cba6f7;">const</span> <span style="color:#89b4fa;">nuestraHistoria</span> = {<br>
-                &nbsp;&nbsp;años: <span style="color:#fab387;">7</span>,<br>
-                &nbsp;&nbsp;fotos: <span style="color:#89b4fa;">document</span>.<span style="color:#89b4fa;">querySelectorAll</span>(<span style="color:#a6e3a1;">".recuerdo"</span>),<br>
-                &nbsp;&nbsp;viajesHechos: [<span style="color:#a6e3a1;">"..."</span>],<br>
-                &nbsp;&nbsp;viajesPorHacer: <span style="color:#fab387;">Infinity</span>,<br>
-                &nbsp;&nbsp;momentosDificiles: <span style="color:#cba6f7;">true</span>,<br>
-                &nbsp;&nbsp;nosRendimos: <span style="color:#cba6f7;">false</span>,<br>
-                };<br><br>
-                <span style="color:#585b70;">// pegar cada foto en su página</span><br>
-                <span style="color:#89b4fa;">nuestraHistoria</span>.<span style="color:#89b4fa;">fotos</span>.<span style="color:#89b4fa;">forEach</span>(<span style="color:#cba6f7;">foto</span> => {<br>
-                &nbsp;&nbsp;<span style="color:#89b4fa;">pegarConCinta</span>(foto);<br>
-                &nbsp;&nbsp;<span style="color:#89b4fa;">escribirCaption</span>(foto.<span style="color:#89b4fa;">recuerdo</span>);<br>
-                &nbsp;&nbsp;<span style="color:#89b4fa;">agregarCorazones</span>();<br>
+                <span style="color:#585b70;">&lt;!-- adventure-book — hecho a mano, 3:47 AM --&gt;</span><br><br>
+                <span style="color:#cba6f7;">&lt;div</span> <span style="color:#89b4fa;">class</span>=<span style="color:#a6e3a1;">"page"</span><span style="color:#cba6f7;">&gt;</span><br>
+                &nbsp;&nbsp;<span style="color:#cba6f7;">&lt;div</span> <span style="color:#89b4fa;">class</span>=<span style="color:#a6e3a1;">"page-title"</span><span style="color:#cba6f7;">&gt;</span>Risas y mas risas<span style="color:#cba6f7;">&lt;/div&gt;</span><br>
+                &nbsp;&nbsp;<span style="color:#cba6f7;">&lt;div</span> <span style="color:#89b4fa;">class</span>=<span style="color:#a6e3a1;">"layout-double"</span><span style="color:#cba6f7;">&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#cba6f7;">&lt;div</span> <span style="color:#89b4fa;">class</span>=<span style="color:#a6e3a1;">"photo-frame"</span><span style="color:#cba6f7;">&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#cba6f7;">&lt;img</span> <span style="color:#89b4fa;">src</span>=<span style="color:#a6e3a1;">"fotos/foto09.jpg"</span><span style="color:#cba6f7;">&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#cba6f7;">&lt;/div&gt;</span><br>
+                &nbsp;&nbsp;<span style="color:#cba6f7;">&lt;/div&gt;</span><br>
+                <span style="color:#cba6f7;">&lt;/div&gt;</span><br><br>
+                <span style="color:#585b70;">&lt;!-- animacion de las paginas --&gt;</span><br>
+                <span style="color:#cba6f7;">const</span> <span style="color:#89b4fa;">pages</span> = <span style="color:#89b4fa;">document</span>.<span style="color:#89b4fa;">querySelectorAll</span>(<span style="color:#a6e3a1;">'.page'</span>);<br>
+                <span style="color:#cba6f7;">const</span> <span style="color:#89b4fa;">observer</span> = <span style="color:#cba6f7;">new</span> <span style="color:#89b4fa;">IntersectionObserver</span>((<span style="color:#89b4fa;">entries</span>) =&gt; {<br>
+                &nbsp;&nbsp;<span style="color:#89b4fa;">entries</span>.<span style="color:#89b4fa;">forEach</span>(<span style="color:#89b4fa;">entry</span> =&gt; {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#cba6f7;">if</span> (<span style="color:#89b4fa;">entry</span>.<span style="color:#89b4fa;">isIntersecting</span>)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#89b4fa;">entry</span>.<span style="color:#89b4fa;">target</span>.<span style="color:#89b4fa;">classList</span>.<span style="color:#89b4fa;">add</span>(<span style="color:#a6e3a1;">'visible'</span>);<br>
+                &nbsp;&nbsp;});<br>
                 });<br><br>
-                <span style="color:#585b70;">// las páginas en blanco que faltan</span><br>
-                <span style="color:#cba6f7;">while</span> (<span style="color:#89b4fa;">libro</span>.<span style="color:#89b4fa;">paginasEnBlanco</span> > <span style="color:#fab387;">0</span>) {<br>
-                &nbsp;&nbsp;<span style="color:#89b4fa;">planearSiguienteAventura</span>();<br>
-                &nbsp;&nbsp;<span style="color:#89b4fa;">llenarPagina</span>(<span style="color:#89b4fa;">juntos</span>);<br>
-                &nbsp;&nbsp;<span style="color:#585b70;">// spoiler: nunca llega a 0</span><br>
-                }<br><br>
                 <span style="color:#585b70;">// Horas invertidas: muchas</span><br>
                 <span style="color:#585b70;">// Dulces comidos: incontables</span><br>
                 <span style="color:#585b70;">// ¿Valió la pena? cada segundo</span>
@@ -1313,7 +1337,28 @@
         </div>
     </button>
 
+    <div id="lightbox" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;justify-content:center;align-items:center;cursor:pointer;">
+        <img id="lightbox-img" style="max-width:92vw;max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:0 0 30px rgba(0,0,0,0.5);" alt="">
+    </div>
+
     <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        document.querySelectorAll('.photo-frame img').forEach(function(img) {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                lightboxImg.src = this.src;
+                lightbox.style.display = 'flex';
+            });
+        });
+
+        lightbox.addEventListener('click', function() {
+            lightbox.style.display = 'none';
+            lightboxImg.src = '';
+        });
+
         const pages = document.querySelectorAll('.page');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
